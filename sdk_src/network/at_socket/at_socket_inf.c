@@ -258,10 +258,12 @@ int at_socket_init(void)
         at_socket_ctxs[i].recvpkt_list = NULL;
     }
 
-    sg_at_socket_mutex = HAL_MutexCreate();
     if (sg_at_socket_mutex == NULL) {
-        Log_e("create sg_at_socket_mutex fail \n");
-        rc = QCLOUD_ERR_FAILURE;
+        sg_at_socket_mutex = HAL_MutexCreate();
+        if (sg_at_socket_mutex == NULL) {
+            Log_e("create sg_at_socket_mutex fail \n");
+            rc = QCLOUD_ERR_FAILURE;
+        }
     }
 
     if (NULL != sg_at_device_ops) {
