@@ -60,7 +60,7 @@ typedef char     TYPE_DEF_TEMPLATE_STRINGENUM;
 #define TYPE_STR_FAULT "fault"
 
 /*If defined,event's timesamp should be accurate UTC timestamp in millisecond */
-#define EVENT_TIMESTAMP_USED
+//#define EVENT_TIMESTAMP_USED
 
 #define FLAG_EVENT0 (1U << 0)
 #define FLAG_EVENT1 (1U << 1)

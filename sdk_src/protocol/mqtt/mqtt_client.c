@@ -121,7 +121,9 @@ void *IOT_MQTT_Construct(MQTTInitParams *pParams)
     }
 #endif
 
+    Log_i("mqtt connect with id: %s", connect_params.client_id);
     rc = qcloud_iot_mqtt_connect(mqtt_client, &connect_params);
+    Log_i("mqtt connect with id: %s", mqtt_client->options.conn_id);
     if (rc != QCLOUD_RET_SUCCESS) {
         Log_e("mqtt connect with id: %s failed: %d", mqtt_client->options.conn_id, rc);
         qcloud_iot_mqtt_fini(mqtt_client);
@@ -312,7 +314,7 @@ int IOT_MQTT_StartLoop(void *pClient)
     thread_params.thread_func         = _mqtt_yield_thread;
     thread_params.thread_name         = "mqtt_yield_thread";
     thread_params.user_arg            = pClient;
-    thread_params.stack_size          = 4096;
+    thread_params.stack_size          = 512;
     thread_params.priority            = 1;
     mqtt_client->yield_thread_running = true;
 
@@ -470,7 +472,11 @@ int qcloud_iot_mqtt_init(Qcloud_IoT_Client *pClient, MQTTInitParams *pParams)
 #endif
 
     // init network stack
-    qcloud_iot_mqtt_network_init(&(pClient->network_stack));
+    rc = qcloud_iot_mqtt_network_init(&(pClient->network_stack));
+    if (rc != QCLOUD_RET_SUCCESS) {
+        Log_e("mqtt network init fail");
+        goto error;
+    }
 
     // ping timer and reconnect delay timer
     InitTimer(&(pClient->ping_timer));

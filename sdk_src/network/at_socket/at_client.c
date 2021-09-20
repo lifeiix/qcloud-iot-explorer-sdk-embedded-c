@@ -134,7 +134,8 @@ bool at_waitFlag(uint32_t flag, uint32_t timeout)
 
     countdown_ms(&timer, timeout);
     do {
-        if (flag == (at_getFlag() & flag)) {
+//        if (flag == (at_getFlag() & flag)) {
+        if (at_getFlag() & flag) {
             Ret = true;
             break;
         }
@@ -526,7 +527,7 @@ static const at_urc *get_urc_obj(at_client_t client)
         }
         if ((prefix_len ? !strncmp(buffer, client->urc_table[i].cmd_prefix, prefix_len) : 1) &&
             (suffix_len ? !strncmp(buffer + buf_sz - suffix_len, client->urc_table[i].cmd_suffix, suffix_len) : 1)) {
-            // Log_d("matched:%s", client->urc_table[i].cmd_prefix);
+//            Log_d("matched:%s", client->urc_table[i].cmd_prefix);
             return &client->urc_table[i];
         }
     }
@@ -651,11 +652,11 @@ static void client_parser(void *userContex)
                 line_counts               = 0;
                 HAL_SemaphorePost(client->resp_sem);
             } else {
-                //                Log_d("unrecognized line: %.*s", client->cur_recv_len,
-                //                client->recv_buffer);
+//                 Log_d("unrecognized line: %.*s", client->cur_recv_len,
+//                    client->recv_buffer);
             }
         } else {
-            // Log_d("read no new line");
+//            Log_d("read no new line");
         }
     }
 }
@@ -864,8 +865,8 @@ int at_client_init(at_client_t *pClient)
 #if defined(AT_OS_USED) && defined(MULTITHREAD_ENABLED)
         //  create thread for at parser
         if (NULL != client->parser) {
-#define AT_PARSER_THREAD_STACK    6144
-#define AT_PARSER_THREAD_PRIORITY 0
+#define AT_PARSER_THREAD_STACK    512
+#define AT_PARSER_THREAD_PRIORITY 1
             ThreadParams thread_params = {0};
             thread_params.thread_func  = client->parser;
             thread_params.thread_name  = "at_client_parser";

@@ -265,7 +265,8 @@ int at_socket_init(void)
     }
 
     if (NULL != sg_at_device_ops) {
-        if (QCLOUD_RET_SUCCESS == sg_at_device_ops->init()) {
+        rc = sg_at_device_ops->init();
+        if (QCLOUD_RET_SUCCESS == rc) {
             Log_d("at device %s init success",
                   (NULL == sg_at_device_ops->deviceName) ? "noname" : sg_at_device_ops->deviceName);
             sg_at_device_ops->set_event_cb(AT_SOCKET_EVT_RECV, _at_socket_recv_cb);

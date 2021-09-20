@@ -43,11 +43,12 @@ LOG_LEVEL g_log_upload_level = eLOG_DISABLE;
 
 static const char *_get_filename(const char *p)
 {
-#ifdef WIN32
-    char ch = '\\';
-#else
+#ifdef __linux__
     char ch = '/';
+#else
+    char ch = '\\';
 #endif
+
     const char *q = strrchr(p, ch);
     if (q == NULL) {
         q = p;

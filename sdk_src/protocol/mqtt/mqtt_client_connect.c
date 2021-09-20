@@ -144,6 +144,11 @@ static int _serialize_connect_packet(unsigned char *buf, size_t buf_len, MQTTCon
     HAL_Snprintf(options->username, username_len, "%s;%s;%s;%ld", options->client_id, QCLOUD_IOT_DEVICE_SDK_APPID,
                  options->conn_id, cur_timesec);
 
+//    HAL_Snprintf(options->username, username_len, "I1A6RS1M7Ylighting_demo001;21010406;DA7Lf;2147483647");
+//    HAL_Snprintf(options->username, username_len, "I1A6RS1M7Ylighting_demo002;21010406;V2GV9;2147483647");
+//    HAL_Snprintf(options->username, username_len, "admin");
+    Log_i("username=%s", options->username);
+
 #if defined(AUTH_WITH_NOTLS) && defined(AUTH_MODE_KEY)
     if (options->device_secret != NULL && options->username != NULL) {
         char sign[41] = {0};
@@ -156,6 +161,11 @@ static int _serialize_connect_packet(unsigned char *buf, size_t buf_len, MQTTCon
             goto err_exit;
         }
         HAL_Snprintf(options->password, 51, "%s;hmacsha1", sign);
+
+//        HAL_Snprintf(options->password, 51, "73efb23931cbc00cd3d5db40206dd9d9edd739ca;hmacsha1");
+//        HAL_Snprintf(options->password, 51, "130f917c73fbb7e69124b827531e06d28f53e598;hmacsha1");
+//        HAL_Snprintf(options->password, 51, "123456");
+        Log_i("password=%s", options->password);
     }
 #endif
 
@@ -329,6 +339,7 @@ static int _mqtt_connect(Qcloud_IoT_Client *pClient, MQTTConnectParams *options)
 
     if (NULL != options) {
         _copy_connect_params(&(pClient->options), options);
+        Log_i("client_id=%s", pClient->options.client_id);
     }
 
     // TCP or TLS network connect
