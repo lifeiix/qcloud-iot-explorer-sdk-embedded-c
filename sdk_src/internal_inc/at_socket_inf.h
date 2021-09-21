@@ -25,7 +25,7 @@
 #include "utils_list.h"
 
 #define UNUSED_SOCKET             (-1)
-#define MAX_AT_SOCKET_NUM         (5)
+#define MAX_AT_SOCKET_NUM         (2)
 #define AT_SOCKET_SEND_TIMEOUT_MS (1000)
 #define AT_SOCKET_RECV_TIMEOUT_MS (1000)
 #define IPV4_STR_MAX_LEN          (16)

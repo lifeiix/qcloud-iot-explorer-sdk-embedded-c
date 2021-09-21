@@ -132,6 +132,7 @@ int network_at_tcp_write(Network *pNetwork, unsigned char *data, size_t datalen,
             len_sent += ret;
         } else if (0 == ret) {
             Log_e("No data be sent\n");
+            net_err = 1;
         } else {
             Log_e("send fail, ret:%d\n", ret);
             net_err = 1;

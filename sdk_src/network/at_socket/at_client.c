@@ -657,6 +657,7 @@ static void client_parser(void *userContex)
             }
         } else {
 //            Log_d("read no new line");
+            HAL_SleepMs(100); // yield thread
         }
     }
 }

@@ -502,6 +502,7 @@ int send_mqtt_packet(Qcloud_IoT_Client *pClient, size_t length, Timer *timer)
                                           &sentLen);
         if (rc != QCLOUD_RET_SUCCESS) {
             /* there was an error writing the data */
+            Log_e("there was an error writing the data");
             break;
         }
         sent = sent + sentLen;
