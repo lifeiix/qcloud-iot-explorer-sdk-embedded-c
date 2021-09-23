@@ -15,7 +15,7 @@
 #define AT_TCP_ENABLED
 #define AT_UART_RECV_IRQ
 #define AT_OS_USED
-#define AT_DEBUG
+/* #undef AT_DEBUG */
 /* #undef OTA_USE_HTTPS */
 /* #undef GATEWAY_ENABLED */
 #define MULTITHREAD_ENABLED

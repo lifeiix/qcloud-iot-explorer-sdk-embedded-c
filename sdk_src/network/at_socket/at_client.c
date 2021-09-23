@@ -878,6 +878,7 @@ int at_client_init(at_client_t *pClient)
             result = HAL_ThreadCreate(&thread_params);
             if (QCLOUD_RET_SUCCESS == result) {
                 Log_d("create at_parser thread success!");
+                HAL_SleepMs(0); // FIXME: yield for parser thread running
             } else {
                 Log_e("create at_parser thread fail!");
             }

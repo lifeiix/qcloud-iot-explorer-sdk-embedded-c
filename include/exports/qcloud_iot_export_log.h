@@ -158,10 +158,18 @@ int IOT_Log_Upload(bool force_upload);
 void IOT_Log_Gen(const char *file, const char *func, const int line, const int level, const char *fmt, ...);
 
 /* Simple APIs for log generation in different level */
-#define Log_d(fmt, ...) IOT_Log_Gen(__FILE__, __FUNCTION__, __LINE__, eLOG_DEBUG, fmt, ##__VA_ARGS__)
-#define Log_i(fmt, ...) IOT_Log_Gen(__FILE__, __FUNCTION__, __LINE__, eLOG_INFO, fmt, ##__VA_ARGS__)
-#define Log_w(fmt, ...) IOT_Log_Gen(__FILE__, __FUNCTION__, __LINE__, eLOG_WARN, fmt, ##__VA_ARGS__)
-#define Log_e(fmt, ...) IOT_Log_Gen(__FILE__, __FUNCTION__, __LINE__, eLOG_ERROR, fmt, ##__VA_ARGS__)
+#include "define.h"
+#ifdef __DEBUG__
+#define Log_d(fmt, ...) //IOT_Log_Gen(__FILE__, __FUNCTION__, __LINE__, eLOG_DEBUG, fmt, ##__VA_ARGS__) // FIXME: cannot comment
+#define Log_i(fmt, ...) //IOT_Log_Gen(__FILE__, __FUNCTION__, __LINE__, eLOG_INFO, fmt, ##__VA_ARGS__)
+#define Log_w(fmt, ...) //IOT_Log_Gen(__FILE__, __FUNCTION__, __LINE__, eLOG_WARN, fmt, ##__VA_ARGS__)
+#define Log_e(fmt, ...) //IOT_Log_Gen(__FILE__, __FUNCTION__, __LINE__, eLOG_ERROR, fmt, ##__VA_ARGS__)
+#else
+#define Log_d(fmt, ...)
+#define Log_i(fmt, ...)
+#define Log_w(fmt, ...)
+#define Log_e(fmt, ...)
+#endif
 
 /* Macro for debug mode */
 #ifdef IOT_DEBUG
